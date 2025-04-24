@@ -1,0 +1,104 @@
+﻿* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e9f0f8;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.center-container {
+    width: 100%;
+    padding: 60px 30px;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.main-card {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.ascii-banner {
+    font-family: 'Courier New', monospace;
+    color: #004b91;
+    white-space: pre;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 14px;
+}
+
+footer {
+    background-color: #004b91;
+    color: white;
+    padding: 12px 20px;
+    text-align: center;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ecf1f8; /* Màu nền nhẹ nhàng */
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+nav {
+    background-color: #004b91;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+nav .menu a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav .menu a:hover {
+    text-decoration: underline;
+}
+
+.center-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px 50px;
+    max-width: 600px;
