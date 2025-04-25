@@ -62,6 +62,8 @@ Sau khi chạy, truy cập trình duyệt tại:
 
 🔗 http://localhost:8080
 
+![image](https://github.com/user-attachments/assets/1390a27f-3eb8-4118-b023-f11417786021)
+
 ---
 
 ## 🧪 Gợi ý khai thác
