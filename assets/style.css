@@ -1,4 +1,4 @@
-﻿/* Reset and base styles */
+/* Reset and base styles */
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #eaeff5;
@@ -31,7 +31,7 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 .container {
@@ -44,7 +44,7 @@ footer {
     text-align: center;
 }
 
-h2 {
+h1 {
     color: #2b3e50;
     margin-bottom: 10px;
 }
@@ -63,10 +63,10 @@ ul.doc-list {
     display: inline-block;
 }
 
-    ul.doc-list li {
-        margin: 6px 0;
-        font-size: 15px;
-    }
+ul.doc-list li {
+    margin: 6px 0;
+    font-size: 15px;
+}
 
 input[type="file"] {
     margin: 15px 0;
@@ -84,15 +84,16 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-    input[type="submit"]:hover {
-        background-color: #004999;
-    }
+input[type="submit"]:hover {
+    background-color: #004999;
+}
 
 a {
     color: #0066cc;
     text-decoration: none;
 }
 
-    a:hover {
-        text-decoration: underline;
-    }
+a:hover {
+    text-decoration: underline;
+}
+

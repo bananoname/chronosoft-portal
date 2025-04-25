@@ -45,9 +45,8 @@ nav .menu a:hover {
     flex-direction: column;
 }
 
-/* CENTER CONTAINER */
+/* FULL WIDTH WHITE BLOCK */
 .center-container {
-    flex: 1;
     width: 100%;
     background-color: white;
     padding: 60px 20px;
@@ -58,13 +57,12 @@ nav .menu a:hover {
 
 /* CONTENT CARD INSIDE */
 .main-card {
-    max-width: 900px;
+    max-width: 1200px;
     width: 100%;
     background: white;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    padding: 40px 50px;
-    margin: 0; /* Xóa margin dưới không cần thiết */
+    padding: 40px;
 }
 
 /* ASCII BANNER */
@@ -72,34 +70,9 @@ nav .menu a:hover {
     font-family: 'Courier New', monospace;
     color: #004b91;
     white-space: pre;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 14px;
-}
-
-/* HEADINGS & TEXT */
-.main-card h2 {
-    text-align: center;
-    color: #004b91;
-}
-
-.main-card p {
-    margin-top: 15px;
-    line-height: 1.6;
-    color: #333;
-}
-
-.main-card h3 {
-    margin-top: 30px;
-    color: #004b91;
-}
-
-strong.orange {
-    background-color: orange;
-    color: black;
-    padding: 1px 5px;
-    border-radius: 3px;
-    font-weight: bold;
 }
 
 /* FOOTER */
@@ -110,4 +83,3 @@ footer {
     text-align: center;
     width: 100%;
 }
-
