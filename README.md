@@ -2,8 +2,10 @@
 # 🛡️ ChronoSoft Internal Upload Portal (CTF Lab - File Upload)
 
 **Môi trường thực hành mô phỏng lỗ hổng File Upload trong ứng dụng web.**  
-Đây là một CTF Lab được thiết kế để giúp học viên hiểu rõ và khai thác các lỗi sai phổ biến trong chức năng upload tệp tin.
-
+- ChronoSoft Internal Upload Portal là một CTF Lab được thiết kế đặc biệt dành cho học viên, chuyên gia bảo mật, hoặc những ai đang theo đuổi con đường trở thành bug bounty hunter. Mục tiêu của môi trường này là giúp người học nắm bắt một cách trực quan và thực tiễn về các lỗ hổng thường gặp trong chức năng tải tệp tin của các ứng dụng web.
+- Trong môi trường này, bạn sẽ được tiếp cận với các tình huống giả lập sát với thực tế – nơi mà một sơ suất nhỏ trong xử lý file upload có thể dẫn đến những rủi ro nghiêm trọng như: tải tệp độc hại, thực thi mã từ xa (RCE), vượt qua kiểm tra loại file (MIME bypass), hoặc leo thang đặc quyền thông qua web shell.
+- Lab này không chỉ mang tính chất thử thách mà còn có tính hướng dẫn cao. Mỗi phần đều giúp bạn từng bước xây dựng tư duy phân tích, phát hiện và khai thác lỗ hổng, từ cơ bản đến nâng cao. Đây là một công cụ học tập lý tưởng trong các khóa đào tạo an ninh mạng hoặc trong quá trình tự học.
+- Hãy sẵn sàng để thử sức, tư duy như một attacker, và nâng cao kỹ năng như một defender thực thụ!
 ---
 
 ## 📄 Mô tả hệ thống
@@ -96,7 +98,13 @@ Sau khi chạy, truy cập trình duyệt tại:
 
 ## 📬 Liên hệ (giả lập)
 
-📧 `security@chronosoft.io`
+📧 `huyquach1703@gmail.com`
+
+💬 Discord: [BanaN0Nam3](https://discord.gg/JuFPnJvJyy)
+
+📱 Zalo: [[HUYQA]-TRAODOI-HOCTAP](https://zalo.me/g/eooety673)
+
+📺 YouTube: [Cộng đồng hacker mũ trắng](https://www.youtube.com/@congdonghackermuxtrang)
 
 ---
 
